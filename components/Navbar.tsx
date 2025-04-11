@@ -4,14 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { signOut } from "@/lib/actions/auth.action";
+import { toast } from "sonner";
 
 interface NavbarProps {
   isAuthenticated: boolean;
 }
 
 const Navbar = ({ isAuthenticated }: NavbarProps) => {
+  const router = useRouter();
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -30,6 +33,27 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
         {label}
       </Link>
     );
+  };
+
+  const handleSignOut = async () => {
+    const result = await signOut();
+    if (!result?.success) {
+      toast.error(result?.message);
+      return;
+    }
+    toast.success('Signed out successfully!');
+    router.push('/');
+  };
+
+  const handleSignOutMobile = async () => {
+    setIsMobileMenuOpen(false);
+    const result = await signOut();
+    if (!result?.success) {
+      toast.error(result?.message);
+      return;
+    }
+    toast.success('Signed out successfully!');
+    router.push('/');
   };
 
   return (
@@ -54,7 +78,7 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
               <NavLink href="/dashboard" label="Dashboard" />
               <NavLink href="/interviews" label="Interviews" />
               <NavLink href="/profile" label="Profile" />
-              <Button size="sm" variant="destructive">
+              <Button size="sm" variant="destructive" onClick={handleSignOut}>
                 Sign Out
               </Button>
             </>
@@ -147,7 +171,7 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
                 >
                   Profile
                 </Link>
-                <Button size="sm" variant="destructive" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button size="sm" variant="destructive" onClick={handleSignOutMobile}>
                   Sign Out
                 </Button>
               </div>

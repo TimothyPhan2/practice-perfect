@@ -72,6 +72,20 @@ export async  function signIn(params: SignInParams){
         }
     }
 }
+
+export async function signOut(){
+    const cookieStore = await cookies();
+
+    cookieStore.delete("session")
+
+    return {
+        success: true,
+        message: "User signed out successfully"
+    }
+
+    
+}
+
 export async function setSessionCooke(idToken: string){
     const cookieStore = await cookies();
 
