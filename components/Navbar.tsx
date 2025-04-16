@@ -76,7 +76,7 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
             // Authenticated Navigation
             <>
               <NavLink href="/dashboard" label="Dashboard" />
-              <NavLink href="/interviews" label="Interviews" />
+              <NavLink href="/interview" label="Interviews" />
               <NavLink href="/profile" label="Profile" />
               <Button size="sm" variant="destructive" onClick={handleSignOut}>
                 Sign Out
@@ -85,9 +85,6 @@ const Navbar = ({ isAuthenticated }: NavbarProps) => {
           ) : (
             // Unauthenticated Navigation
             <>
-              <NavLink href="/features" label="Features" />
-              <NavLink href="/pricing" label="Pricing" />
-              <NavLink href="/about" label="About" />
               <div className="flex items-center gap-2">
                 <Button size="sm" variant="outline" asChild>
                   <Link href="/sign-in">Sign In</Link>
