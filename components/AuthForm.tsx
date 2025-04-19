@@ -72,7 +72,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           email, idToken
         })
         toast.success('Signed in successfully!')
-        router.push('/')
+        router.push('/dashboard')
       }
     } catch (error) {
       console.log(error);
@@ -88,7 +88,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
           <Image src="/logo.svg" alt="logo" height={32} width={38} />
           <h2 className="text-primary-100">PracticePerfect</h2>
         </div>
-        <h3>Practice job interviews with AI</h3>
+        <h3 className="text-center">Practice job interviews with AI</h3>
 
         <Form {...form}>
           <form
